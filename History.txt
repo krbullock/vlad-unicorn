@@ -1,0 +1,6 @@
+=== 2.0.0 / 2010-XX-XX [FIX]
+
+* 1 major enhancement
+
+  * Birthday!
+

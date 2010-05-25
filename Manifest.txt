@@ -1,0 +1,9 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+lib/vlad/unicorn.rb
+lib/vlad/unicorn_common.rb
+lib/vlad/unicorn_rails.rb
+test/test_vlad_unicorn.rb
