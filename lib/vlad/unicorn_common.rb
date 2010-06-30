@@ -34,7 +34,11 @@ namespace :vlad do
 
   desc "Stop the app servers"
   remote_task :stop_app, :roles => :app do
-    Vlad::Unicorn.maybe_sudo %Q(sh -c 'if [ -f '\''#{unicorn_pid}'\'' ]; then kill `cat #{unicorn_pid}`; fi')
+    cmd = []
+    cmd << %(if [ -f "#{unicorn_pid}" ])
+    cmd << %(then kill `cat #{unicorn_pid}` || echo "stale pid file #{unicorn_pid}")
+    cmd << %(fi)
+    Vlad::Unicorn.maybe_sudo %Q(sh -c '#{cmd.join("; ")}')
   end
 
 end
