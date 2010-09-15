@@ -41,7 +41,21 @@ or for legacy Rails (1.2.x thru 2.2.x) apps
 
 == VARIABLES:
 
-* FIX
+unicorn_command::       Defaults to 'unicorn' when using
+                        <tt>:app => :unicorn</tt>, and 'unicorn_rails' with
+                        <tt>:app => :unicorn_rails.</tt>
+unicorn_config::        The location of the Unicorn config file. Defaults to
+                        "#{current_path}/config/unicorn.rb".
+unicorn_pid::           The location of the Unicorn pid file. Must be the same
+                        as in unicorn.rb file. Currently needed for the
+                        +stop_app+ task, but hopefully won't be necessary in a
+                        future version.
+unicorn_rackup::        The location of the rackup file unicorn should load.
+                        Defaults to "#{current_path}/config.ru". Not set nor
+                        used for +unicorn_rails+.
+unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
+                        the remote host. Probably necessary if you specify a
+                        user and group in unicorn.rb.
 
 == LICENSE:
 
