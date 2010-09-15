@@ -57,6 +57,8 @@ unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
                         the remote host. Probably necessary if you specify a
                         user and group in unicorn.rb.
 
+Also see rails-configuration.txt.
+
 == LICENSE:
 
 (The MIT License)

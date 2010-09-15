@@ -1,0 +1,10 @@
+= Configuring Unicorn for Rails
+
+The astute observer will notice the lack of variables in vlad-unicorn to set
+the Rails environment or a path prefix for the app (the +unicorn_rails+
+command allows this with with the +--env+ and +--path+ options, respectively).
+Both of these can just as easily be done by setting the appropriate
+environment variables in the unicorn.rb config file, like so:
+
+    ENV['RAILS_ENV'] = 'production'
+    ENV['RAILS_RELATIVE_URL_ROOT'] = '/prefix'

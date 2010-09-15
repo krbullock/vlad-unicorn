@@ -3,6 +3,7 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
+docs/rails-configuration.txt
 lib/vlad/unicorn.rb
 lib/vlad/unicorn_common.rb
 lib/vlad/unicorn_rails.rb
