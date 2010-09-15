@@ -18,16 +18,12 @@ end
 namespace :vlad do
 
   set :unicorn_command,     "unicorn"
-  set :unicorn_environment, "production"
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
-  set :unicorn_prefix,      nil
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
 
   def unicorn(opts = '')
     cmd = "#{unicorn_command} -D --config-file #{unicorn_config}"
-    cmd << " --env #{unicorn_environment}"
-    cmd << " --path #{unicorn_prefix}" if unicorn_prefix
     cmd << " #{opts}"
     cmd
   end
