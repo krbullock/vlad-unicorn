@@ -1,4 +1,4 @@
-=== 2.0.0 / 2010-XX-XX [FIX]
+=== 2.0.0 / 2010-09-18
 
 * 1 major enhancement
 
