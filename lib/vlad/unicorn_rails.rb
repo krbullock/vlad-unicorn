@@ -8,7 +8,6 @@ namespace :vlad do
 
   desc "(Re)Start the app servers"
   remote_task :start_app, :roles => :app do
-    Rake::Task['vlad:stop_app'].invoke
-    Vlad::Unicorn.maybe_sudo unicorn
+    Vlad::Unicorn.start
   end
 end

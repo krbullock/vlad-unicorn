@@ -12,29 +12,33 @@ module Vlad
         run cmd
       end
     end
+
+    def self.signal(sig = '0')
+      %(test -s "#{unicorn_pid}" && kill -#{sig} "{unicorn_pid}")
+    end
+
+    def self.start(opts = '')
+      cmd = signal('HUP')
+      cmd << %( || #{unicorn_command} -D --config-file #{unicorn_config} #{opts})
+      maybe_sudo %(sh -c '#{cmd}')
+    end
+
+    def self.stop
+      cmd = signal('QUIT')
+      cmd << %( || echo "stale pid file #{unicorn_pid}")
+      maybe_sudo %(sh -c '#{cmd}')
+    end
   end
 end
 
 namespace :vlad do
-
   set :unicorn_command,     "unicorn"
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
 
-  def unicorn(opts = '')
-    cmd = "#{unicorn_command} -D --config-file #{unicorn_config}"
-    cmd << " #{opts}"
-    cmd
-  end
-
   desc "Stop the app servers"
   remote_task :stop_app, :roles => :app do
-    cmd = []
-    cmd << %(if [ -f "#{unicorn_pid}" ])
-    cmd << %(then kill `cat #{unicorn_pid}` || echo "stale pid file #{unicorn_pid}")
-    cmd << %(fi)
-    Vlad::Unicorn.maybe_sudo %Q(sh -c '#{cmd.join("; ")}')
+    Vlad::Unicorn.stop
   end
-
 end
