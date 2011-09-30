@@ -14,7 +14,7 @@ module Vlad
     end
 
     def self.signal(sig = '0')
-      %(test -s "#{unicorn_pid}" && kill -#{sig} "{unicorn_pid}")
+      %(test -s "#{unicorn_pid}" && kill -#{sig} `cat "#{unicorn_pid}"`)
     end
 
     def self.start(opts = '')
