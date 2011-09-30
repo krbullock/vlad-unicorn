@@ -10,7 +10,7 @@ Hoe.spec 'vlad-unicorn' do
   developer('Kevin R. Bullock', 'kbullock@ringworld.org')
   extra_deps << ['vlad', '~> 2.0']
   clean_globs << '.yardoc'
-  self.hg_release_tag_prefix = 'rel-'
+  self.hg_release_tag_prefix = 'v'
 end
 
 # vim: syntax=ruby
