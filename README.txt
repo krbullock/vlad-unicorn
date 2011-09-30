@@ -29,6 +29,9 @@ or for legacy Rails (1.2.x thru 2.2.x) apps
     rescue LoadError
     end
 
+For more on specific issues when deploying Rails applications, see
+rails-configuration.txt[link:docs/rails-configuration_txt.html].
+
 == REQUIREMENTS:
 
 * Vlad[http://rubyhitsquad.com/Vlad_the_Deployer.html]
@@ -57,7 +60,8 @@ unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
                         the remote host. Probably necessary if you specify a
                         user and group in unicorn.rb.
 
-Also see rails-configuration.txt.
+For more on specific issues when deploying Rails applications, see
+rails-configuration.txt[link:docs/rails-configuration_txt.html].
 
 == LICENSE:
 

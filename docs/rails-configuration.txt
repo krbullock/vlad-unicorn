@@ -1,5 +1,7 @@
 = Configuring Unicorn for Rails
 
+== Setting environment and prefix
+
 The astute observer will notice the lack of variables in vlad-unicorn to set
 the Rails environment or a path prefix for the app (the +unicorn_rails+
 command allows this with with the +--env+ and +--path+ options, respectively).
@@ -8,3 +10,13 @@ environment variables in the unicorn.rb config file, like so:
 
     ENV['RAILS_ENV'] = 'production'
     ENV['RAILS_RELATIVE_URL_ROOT'] = '/prefix'
+
+== Using with Rails 2.3 and Bundler
+
+When using Rails 2.3 with Bundler, you have to <code>bundle exec</code>
+everything. This can be done by setting +unicorn_command+ in your deploy.rb.
+Since Vlad doesn't change into the +RAILS_ROOT+ directory before attempting to
+run remote commands, though, you have to explicitly tell Bundler where the
+Gemfile is:
+
+    set :unicorn_command, "bundle --gemfile=#{current_path}/Gemfile exec unicorn_rails"
