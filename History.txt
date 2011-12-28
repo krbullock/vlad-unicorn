@@ -1,3 +1,9 @@
+=== 2.1.1 / 2011-12-28
+
+* 1 bug fix
+
+  * Allow complex commands in unicorn_command (Matthew Smith)
+
 === 2.1.0 / 2011-09-30
 
 * 1 minor enhancement
