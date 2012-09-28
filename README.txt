@@ -59,6 +59,10 @@ unicorn_rackup::        The location of the rackup file unicorn should load.
 unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
                         the remote host. Probably necessary if you specify a
                         user and group in unicorn.rb.
+unicorn_use_preload::   Whether you unicorn.rb is using `preload_app = true`.
+                        If this is the case, you have to adapt your `before_fork`
+                        hook so it kills the old unicorn master and workers.
+                        cf "Getting started with unicorn"[http://codelevy.com/2010/02/09/getting-started-with-unicorn.html]
 
 For more on specific issues when deploying Rails applications, see
 rails-configuration.txt[link:docs/rails-configuration_txt.html].

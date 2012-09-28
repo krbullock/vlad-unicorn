@@ -13,12 +13,20 @@ module Vlad
       end
     end
 
+    def self.unicorn_restart_signal
+      if unicorn_use_preload
+        'USR2'
+      else
+        'HUP'
+      end
+    end
+
     def self.signal(sig = '0')
       %(test -s "#{unicorn_pid}" && kill -#{sig} `cat "#{unicorn_pid}"`)
     end
 
     def self.start(opts = '')
-      cmd = signal('HUP')
+      cmd = signal(unicorn_restart_signal)
       cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
       maybe_sudo %(sh -c '#{cmd}')
     end
@@ -36,6 +44,7 @@ namespace :vlad do
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
+  set :unicorn_use_preload, false
 
   desc "Stop the app servers"
   remote_task :stop_app, :roles => :app do
