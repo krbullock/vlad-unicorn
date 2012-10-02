@@ -11,12 +11,23 @@ environment variables in the unicorn.rb config file, like so:
     ENV['RAILS_ENV'] = 'production'
     ENV['RAILS_RELATIVE_URL_ROOT'] = '/prefix'
 
+To use +RAILS_RELATIVE_URL_ROOT+ with Rails 3.x, you can use your project's rackup
+file (config.ru) to map the application to a prefix:
+
+     # This file is used by Rack-based servers to start the application.
+     
+     require ::File.expand_path('../config/environment',  __FILE__)
+    -run MyApp::Application
+    +app = MyApp::Application
+    +app = Rack::URLMap.new(ENV['RAILS_RELATIVE_URL_ROOT'] => app) if
+       ENV['RAILS_RELATIVE_URL_ROOT']
+    +run app
+
 == Using with Rails 2.3 and Bundler
 
 When using Rails 2.3 with Bundler, you have to <code>bundle exec</code>
 everything. This can be done by setting +unicorn_command+ in your deploy.rb.
 Since Vlad doesn't change into the +RAILS_ROOT+ directory before attempting to
-run remote commands, though, you have to explicitly tell Bundler where the
-Gemfile is:
+run remote commands, though, you have to explicitly tell it to do so:
 
-    set :unicorn_command, "bundle --gemfile=#{current_path}/Gemfile exec unicorn_rails"
+    set :unicorn_command, "cd #{current_path} && bundle exec unicorn_rails"
