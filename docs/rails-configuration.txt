@@ -20,7 +20,7 @@ file (config.ru) to map the application to a prefix:
     -run MyApp::Application
     +app = MyApp::Application
     +app = Rack::URLMap.new(ENV['RAILS_RELATIVE_URL_ROOT'] => app) if
-       ENV['RAILS_RELATIVE_URL_ROOT']
+    +  ENV['RAILS_RELATIVE_URL_ROOT']
     +run app
 
 == Using with Rails 2.3 and Bundler
