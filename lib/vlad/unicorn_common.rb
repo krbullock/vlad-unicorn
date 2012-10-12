@@ -13,12 +13,26 @@ module Vlad
       end
     end
 
+    def self.unicorn_restart_signal
+      if unicorn_use_preload
+        'USR2'
+      else
+        'HUP'
+      end
+    end
+
     def self.signal(sig = '0')
       %(test -s "#{unicorn_pid}" && kill -#{sig} `cat "#{unicorn_pid}"`)
     end
 
     def self.start(opts = '')
       cmd = signal('HUP')
+      cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
+      maybe_sudo %(sh -c '#{cmd}')
+    end
+
+    def self.reload(opts = '')
+      cmd = signal('USR2')
       cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
       maybe_sudo %(sh -c '#{cmd}')
     end
