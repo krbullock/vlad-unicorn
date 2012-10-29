@@ -38,7 +38,8 @@ module Vlad
 end
 
 namespace :vlad do
-  set :unicorn_command,     "unicorn"
+  set :unicorn_use_bundler, true
+  set(:unicorn_command)     { unicorn_use_bundler ? "BUNDLE_GEMFILE=#{current_path}/Gemfile bundle exec unicorn" : "unicorn" }
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
