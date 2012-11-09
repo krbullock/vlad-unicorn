@@ -2,7 +2,7 @@ require 'vlad'
 
 module Vlad
   module Unicorn
-    VERSION = '2.1.1' #:nodoc:
+    VERSION = '2.2.0' #:nodoc:
 
     # Runs +cmd+ using sudo if the +:unicorn_use_sudo+ variable is set.
     def self.maybe_sudo(cmd)
