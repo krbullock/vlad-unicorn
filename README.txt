@@ -65,10 +65,13 @@ rails-configuration.txt[link:docs/rails-configuration_txt.html].
 
 == TASKS:
 
-reload_app::            Reload unicorn (in case `preload_app = true`).
-                        If this is the case, you have to adapt your `before_fork`
+start_app, stop_app::   Vlad's built-in tasks to start and stop the application
+                        processes, adapted for Unicorn.
+
+reload_app::            Reload unicorn (in case <tt>preload_app == true</tt>).
+                        If this is the case, you have to adapt your +before_fork+
                         hook so it kills the old unicorn master and workers.
-                        cf "Getting started with unicorn"[http://codelevy.com/2010/02/09/getting-started-with-unicorn.html]
+                        Cf. "Getting started with unicorn"[http://codelevy.com/2010/02/09/getting-started-with-unicorn.html].
 
 == LICENSE:
 
