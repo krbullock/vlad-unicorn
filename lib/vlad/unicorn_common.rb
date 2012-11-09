@@ -23,6 +23,12 @@ module Vlad
       maybe_sudo %(sh -c '#{cmd}')
     end
 
+    def self.reload(opts = '')
+      cmd = signal('USR2')
+      cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
+      maybe_sudo %(sh -c '#{cmd}')
+    end
+
     def self.stop
       cmd = signal('QUIT')
       cmd << %( || echo "stale pid file #{unicorn_pid}")

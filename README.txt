@@ -63,11 +63,21 @@ unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
 For more on specific issues when deploying Rails applications, see
 rails-configuration.txt[link:docs/rails-configuration_txt.html].
 
+== TASKS:
+
+start_app, stop_app::   Vlad's built-in tasks to start and stop the application
+                        processes, adapted for Unicorn.
+
+reload_app::            Reload unicorn (in case <tt>preload_app == true</tt>).
+                        If this is the case, you have to adapt your +before_fork+
+                        hook so it kills the old unicorn master and workers.
+                        Cf. "Getting started with unicorn"[http://codelevy.com/2010/02/09/getting-started-with-unicorn.html].
+
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2010 Kevin Bullock and the rest of the Ruby Hit Squad
+Copyright (c) 2012 Kevin Bullock and the rest of the Ruby Hit Squad
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
