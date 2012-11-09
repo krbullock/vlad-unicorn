@@ -1,4 +1,6 @@
 .autotest
+.hgignore
+.hgtags
 History.txt
 Manifest.txt
 README.txt
