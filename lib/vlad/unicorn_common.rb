@@ -13,14 +13,6 @@ module Vlad
       end
     end
 
-    def self.unicorn_restart_signal
-      if unicorn_use_preload
-        'USR2'
-      else
-        'HUP'
-      end
-    end
-
     def self.signal(sig = '0')
       %(test -s "#{unicorn_pid}" && kill -#{sig} `cat "#{unicorn_pid}"`)
     end
