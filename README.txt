@@ -59,6 +59,10 @@ unicorn_rackup::        The location of the rackup file unicorn should load.
 unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
                         the remote host. Probably necessary if you specify a
                         user and group in unicorn.rb.
+unicorn_env::           Environment to be given to unicorn (value for `-E`).
+                        Default value is based on `vlad/rails`'s `rails_env`.
+                        If `rails_env` is not defined, `production` is used as
+                        default value.
 
 For more on specific issues when deploying Rails applications, see
 rails-configuration.txt[link:docs/rails-configuration_txt.html].
