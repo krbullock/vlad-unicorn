@@ -7,7 +7,7 @@ module Vlad
     # Runs +cmd+ using sudo if the +:unicorn_use_sudo+ variable is set.
     def self.maybe_sudo(cmd)
       if unicorn_use_sudo
-        sudo cmd
+        sudo %(sh -c '#{cmd}')
       else
         run cmd
       end
@@ -20,19 +20,19 @@ module Vlad
     def self.start(opts = '')
       cmd = signal('HUP')
       cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
-      maybe_sudo %(sh -c '#{cmd}')
+      maybe_sudo cmd
     end
 
     def self.reload(opts = '')
       cmd = signal('USR2')
       cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
-      maybe_sudo %(sh -c '#{cmd}')
+      maybe_sudo cmd
     end
 
     def self.stop
       cmd = signal('QUIT')
       cmd << %( || echo "stale pid file #{unicorn_pid}")
-      maybe_sudo %(sh -c '#{cmd}')
+      maybe_sudo cmd
     end
   end
 end
