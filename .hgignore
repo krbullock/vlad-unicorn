@@ -9,3 +9,4 @@ syntax: regexp
 ^pkg/
 ^doc/
 ^.yardoc$
+^vlad-unicorn\.gemspec$
