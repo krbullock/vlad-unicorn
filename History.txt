@@ -1,3 +1,9 @@
+=== 2.2.1 / 2013-03-08
+
+* 1 bug fix
+
+  * Quote commands better when using sudo
+
 === 2.2.0 / 2012-11-09
 
 * 1 minor enhancement
