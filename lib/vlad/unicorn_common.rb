@@ -19,13 +19,13 @@ module Vlad
 
     def self.start(opts = '')
       cmd = signal('HUP')
-      cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
+      cmd << %( || (#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts}))
       maybe_sudo cmd
     end
 
     def self.reload(opts = '')
       cmd = signal('USR2')
-      cmd << %( || (#{unicorn_command} -D --config-file #{unicorn_config} #{opts}))
+      cmd << %( || (#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts}))
       maybe_sudo cmd
     end
 
@@ -42,6 +42,7 @@ namespace :vlad do
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
+  set(:unicorn_env)         { begin rails_env ; rescue Rake::FetchError => e ; "production" end }
 
   desc "Stop the app servers"
   remote_task :stop_app, :roles => :app do
