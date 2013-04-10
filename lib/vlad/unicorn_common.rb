@@ -43,6 +43,8 @@ namespace :vlad do
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
   set(:unicorn_env)         { begin rails_env ; rescue Rake::FetchError => e ; "production" end }
+  shared_paths['log'] ||= 'log'
+  shared_paths['pids'] ||= 'tmp/pids'
 
   desc "Stop the app servers"
   remote_task :stop_app, :roles => :app do
