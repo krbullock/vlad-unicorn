@@ -14,7 +14,12 @@ module Vlad
     end
 
     def self.start_unicorn(opts = '')
-      %(#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts})
+      cmd = %(#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts})
+      if unicorn_use_bundler
+        [unicorn_bundle_cmd, cmd].join(' ')
+      else
+        cmd
+      end
     end
 
     def self.signal(sig = '0')
@@ -47,6 +52,10 @@ namespace :vlad do
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
   set(:unicorn_env)         { begin rails_env ; rescue Rake::FetchError => e ; "production" end }
+  set(:unicorn_bundle_cmd)  {
+    "cd #{current_path} && #{Rake::RemoteTask.fetch(:bundle_cmd, 'bundle')} exec"
+  }
+  set :unicorn_use_bundler, false
   shared_paths['log'] ||= 'log'
   shared_paths['pids'] ||= 'tmp/pids'
 

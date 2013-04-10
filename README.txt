@@ -63,6 +63,13 @@ unicorn_env::           Environment to be given to unicorn (value for `-E`).
                         Default value is based on `vlad/rails`'s `rails_env`.
                         If `rails_env` is not defined, `production` is used as
                         default value.
+unicorn_use_bundler::   Whether to use <tt>bundle exec</tt> to run the 'unicorn'
+                        command on the remote host. Defaults to false.
+unicorn_bundle_cmd::    How to invoke <tt>bundle exec</tt>. Defaults to
+                        <tt>cd #{current_path} && bundle exec</tt>. If you have
+                        defined +bundle_cmd+ for Bundler's built-in deployment
+                        tasks, vlad-unicorn will use that in place of +bundle+
+                        in the above default.
 
 For more on specific issues when deploying Rails applications, see
 rails-configuration.txt[link:docs/rails-configuration_txt.html].
