@@ -51,7 +51,7 @@ namespace :vlad do
   set(:unicorn_config)      { "#{current_path}/config/unicorn.rb" }
   set :unicorn_use_sudo,    false
   set(:unicorn_pid)         { "#{shared_path}/pids/unicorn.pid" }
-  set(:unicorn_env)         { begin rails_env ; rescue Rake::FetchError => e ; "production" end }
+  set(:unicorn_env)         { Rake::RemoteTask.fetch(:rails_env, 'production') }
   set(:unicorn_bundle_cmd)  {
     "cd #{current_path} && #{Rake::RemoteTask.fetch(:bundle_cmd, 'bundle')} exec"
   }
