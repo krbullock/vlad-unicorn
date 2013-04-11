@@ -1,33 +1,26 @@
 = Configuring Unicorn for Rails
 
-== Setting environment and prefix
+== Setting the environment
 
-The astute observer will notice the lack of variables in vlad-unicorn to set
-the Rails environment or a path prefix for the app (the +unicorn_rails+
-command allows this with with the +--env+ and +--path+ options, respectively).
-Both of these can just as easily be done by setting the appropriate
-environment variables in the unicorn.rb config file, like so:
+As of 2.3.0, vlad-unicorn allows you to pass the Rails or Rack environment to
+the +unicorn+ command (the +--env+ option):
+
+    set :unicorn_env, 'production'
+
+This can also be done by setting the appropriate environment variable in the
+unicorn.rb config file, like so:
 
     ENV['RAILS_ENV'] = 'production'
     ENV['RAILS_RELATIVE_URL_ROOT'] = '/prefix'
 
-To use +RAILS_RELATIVE_URL_ROOT+ with Rails 3.x, you can use your project's rackup
-file (config.ru) to map the application to a prefix:
+== Using with Bundler
 
-     # This file is used by Rack-based servers to start the application.
-     
-     require ::File.expand_path('../config/environment',  __FILE__)
-    -run MyApp::Application
-    +app = MyApp::Application
-    +app = Rack::URLMap.new(ENV['RAILS_RELATIVE_URL_ROOT'] => app) if
-    +  ENV['RAILS_RELATIVE_URL_ROOT']
-    +run app
+When deploying with Bundler, it's often more robust to <code>bundle exec</code>
+everything. This can be done by setting +unicorn_use_bundler+ to true in your
+deploy.rb. By default, this will change into the current release directory and
+run +bundle exec+ there.
 
-== Using with Rails 2.3 and Bundler
+This can be changed by setting +unicorn_bundle_cmd+. One alternate approach is
+to pass the full Gemfile path using the BUNDLE_GEMFILE environment variable:
 
-When using Rails 2.3 with Bundler, you have to <code>bundle exec</code>
-everything. This can be done by setting +unicorn_command+ in your deploy.rb.
-Since Vlad doesn't change into the +RAILS_ROOT+ directory before attempting to
-run remote commands, though, you have to explicitly tell it to do so:
-
-    set :unicorn_command, "cd #{current_path} && bundle exec unicorn_rails"
+    set :unicorn_bundle_cmd, "BUNDLE_GEMFILE=#{current_path}/Gemfile bundle exec"
