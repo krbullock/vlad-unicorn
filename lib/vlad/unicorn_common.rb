@@ -7,7 +7,7 @@ module Vlad
     # Runs +cmd+ using sudo if the +:unicorn_use_sudo+ variable is set.
     def self.maybe_sudo(cmd)
       if unicorn_use_sudo
-        sudo %(sh -c '#{cmd.gsub(/'/, "'\''")}')
+        sudo %(sh -c '#{cmd.gsub(/'/, "'\\''")}')
       else
         run cmd
       end
