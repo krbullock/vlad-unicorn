@@ -13,19 +13,23 @@ module Vlad
       end
     end
 
+    def self.start_unicorn(opts = '')
+      %(#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts})
+    end
+
     def self.signal(sig = '0')
       %(test -s "#{unicorn_pid}" && kill -#{sig} `cat "#{unicorn_pid}"`)
     end
 
     def self.start(opts = '')
       cmd = signal('HUP')
-      cmd << %( || (#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts}))
+      cmd << %( || (#{start_unicorn(opts)}))
       maybe_sudo cmd
     end
 
     def self.reload(opts = '')
       cmd = signal('USR2')
-      cmd << %( || (#{unicorn_command} -D -E "#{unicorn_env}" --config-file #{unicorn_config} #{opts}))
+      cmd << %( || (#{start_unicorn(opts)}))
       maybe_sudo cmd
     end
 
