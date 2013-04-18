@@ -4,7 +4,7 @@ namespace :vlad do
   ##
   # Unicorn app server for legacy Rails apps
 
-  set :unicorn_command, "unicorn_rails"
+  set(:unicorn_command) { unicorn_use_bundler ? "BUNDLE_GEMFILE=#{current_path}/Gemfile bundle exec unicorn_rails" : "unicorn_rails" }
 
   desc "(Re)Start the app servers"
   remote_task :start_app, :roles => :app do
