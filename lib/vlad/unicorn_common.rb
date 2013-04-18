@@ -16,7 +16,7 @@ module Vlad
     def self.start_unicorn(opts = '')
       cmd = %(#{unicorn_command} -D --config-file "#{unicorn_config}")
       cmd << %( -E "#{unicorn_env}") if unicorn_env
-      cmd << opts
+      cmd << %( #{opts}) if opts and !opts.empty?
       if unicorn_use_bundler
         [unicorn_bundle_cmd, cmd].join(' ')
       else
