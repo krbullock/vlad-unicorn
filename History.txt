@@ -1,9 +1,9 @@
-=== 2.3.0 / 2013-04-11
+=== 2.3.0 / 2013-04-17
 
 * 3 minor enhancements
 
   * Pass an environment to Unicorn, default to rails_env (if present) or
-    'production'. (Mathieu Lemoine)
+    'production'. (Mathieu Lemoine) (BC)
   * Create shared/log and shared/pids directories on vlad:setup_app, even for
     non-Rails apps.
   * Add an option to trivially enable using `bundle exec`.

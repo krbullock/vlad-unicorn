@@ -62,7 +62,8 @@ unicorn_use_sudo::      Whether to use sudo to run the 'unicorn' command on
 unicorn_env::           Environment to be given to unicorn (value for +-E+).
                         Default value is based on +vlad/rails+'s +rails_env+.
                         If +rails_env+ is not defined, +production+ is used as
-                        default value.
+                        default value. To disable passing an environment, set to
+                        +nil+.
 unicorn_use_bundler::   Whether to use <tt>bundle exec</tt> to run the 'unicorn'
                         command on the remote host. Defaults to false.
 unicorn_bundle_cmd::    How to invoke <tt>bundle exec</tt>. Defaults to
